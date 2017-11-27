@@ -1,0 +1,517 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.5
+-- Dumped by pg_dump version 9.6.5
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: fashion; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE fashion WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'Russian_Russia.1251' LC_CTYPE = 'Russian_Russia.1251';
+
+
+ALTER DATABASE fashion OWNER TO postgres;
+
+\connect fashion
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- Name: code_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE code_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE code_seq OWNER TO postgres;
+
+--
+-- Name: code_seq1; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE code_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE code_seq1 OWNER TO postgres;
+
+--
+-- Name: code_seq2; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE code_seq2
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE code_seq2 OWNER TO postgres;
+
+--
+-- Name: code_seq3; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE code_seq3
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE code_seq3 OWNER TO postgres;
+
+--
+-- Name: code_seq4; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE code_seq4
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE code_seq4 OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: comment_stories; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE comment_stories (
+    id integer DEFAULT nextval('code_seq1'::regclass) NOT NULL,
+    user_id integer,
+    story_id integer,
+    text text,
+    date timestamp with time zone
+);
+
+
+ALTER TABLE comment_stories OWNER TO postgres;
+
+--
+-- Name: cookies; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE cookies (
+    id character varying(128),
+    token character varying(128)
+);
+
+
+ALTER TABLE cookies OWNER TO postgres;
+
+--
+-- Name: favorites; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE favorites (
+    user_id integer,
+    story_id integer
+);
+
+
+ALTER TABLE favorites OWNER TO postgres;
+
+--
+-- Name: forum_topic; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE forum_topic (
+    id integer DEFAULT nextval('code_seq3'::regclass) NOT NULL,
+    name character varying(64),
+    users_id integer,
+    date date
+);
+
+
+ALTER TABLE forum_topic OWNER TO postgres;
+
+--
+-- Name: message; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE message (
+    id integer DEFAULT nextval('code_seq4'::regclass) NOT NULL,
+    forum_topic_id integer,
+    user_id integer,
+    text text,
+    date timestamp with time zone
+);
+
+
+ALTER TABLE message OWNER TO postgres;
+
+--
+-- Name: photos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE photos (
+    id integer NOT NULL,
+    photo character varying(64)
+);
+
+
+ALTER TABLE photos OWNER TO postgres;
+
+--
+-- Name: stories; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE stories (
+    id integer DEFAULT nextval('code_seq2'::regclass) NOT NULL,
+    story text,
+    photo character varying(64),
+    country character varying(32),
+    "time" character varying(32),
+    shortstory text,
+    name character varying(64)
+);
+
+
+ALTER TABLE stories OWNER TO postgres;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE users (
+    id integer DEFAULT nextval('code_seq'::regclass) NOT NULL,
+    login character varying(32),
+    password character varying(32),
+    name character varying(32),
+    email character varying(32),
+    town character varying(32),
+    about text,
+    is_admin boolean
+);
+
+
+ALTER TABLE users OWNER TO postgres;
+
+--
+-- Name: code_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('code_seq', 41, true);
+
+
+--
+-- Name: code_seq1; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('code_seq1', 27, true);
+
+
+--
+-- Name: code_seq2; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('code_seq2', 5, true);
+
+
+--
+-- Name: code_seq3; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('code_seq3', 33, true);
+
+
+--
+-- Name: code_seq4; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('code_seq4', 73, true);
+
+
+--
+-- Data for Name: comment_stories; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY comment_stories (id, user_id, story_id, text, date) FROM stdin;
+26	29	2	da	2017-11-26 23:52:14.004+03
+\.
+
+
+--
+-- Data for Name: cookies; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cookies (id, token) FROM stdin;
+15	[B@4bdbb22
+\.
+
+
+--
+-- Data for Name: favorites; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY favorites (user_id, story_id) FROM stdin;
+29	2
+29	5
+29	1
+29	6
+\.
+
+
+--
+-- Data for Name: forum_topic; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY forum_topic (id, name, users_id, date) FROM stdin;
+22	Focus need help	29	2017-11-26
+23	Ford	29	2017-11-26
+24	DA	29	2017-11-26
+25	And	29	2017-11-26
+26	WakeUp	29	2017-11-26
+27	Please help me	29	2017-11-26
+28	Fiesta	29	2017-11-26
+29	Dodge	29	2017-11-26
+30	Noooo	29	2017-11-26
+31	Example	29	2017-11-26
+32	And one more	29	2017-11-26
+33	Ohh	29	2017-11-26
+\.
+
+
+--
+-- Data for Name: message; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY message (id, forum_topic_id, user_id, text, date) FROM stdin;
+70	22	29	Can I help u?	2017-11-26 22:51:04.972+03
+71	22	29	ofk\r\n	2017-11-26 22:51:11.661+03
+72	22	29	Lol	2017-11-26 22:51:14.893+03
+73	22	29	And somthing else	2017-11-26 22:51:23.527+03
+\.
+
+
+--
+-- Data for Name: photos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY photos (id, photo) FROM stdin;
+3	images/fashion/3.jpg
+1	images/fashion/1.jpg
+2	images/fashion/2.jpg
+5	images/fashion/5.jpg
+4	images/fashion/4.jpg
+6	images/fashion/6.jpg
+27	images/fashion/27.jpg
+26	images/fashion/26.jpg
+25	images/fashion/25.jpg
+24	images/fashion/24.jpg
+23	images/fashion/23.jpg
+22	images/fashion/22.jpg
+21	images/fashion/21.jpg
+20	images/fashion/20.jpg
+19	images/fashion/19.jpg
+18	images/fashion/18.jpg
+17	images/fashion/17.jpg
+16	images/fashion/16.jpg
+15	images/fashion/15.jpg
+14	images/fashion/14.jpg
+13	images/fashion/13.jpg
+12	images/fashion/12.jpg
+11	images/fashion/11.jpg
+10	images/fashion/10.jpg
+9	images/fashion/9.jpg
+8	images/fashion/8.jpg
+7	images/fashion/7.jpg
+\.
+
+
+--
+-- Data for Name: stories; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY stories (id, story, photo, country, "time", shortstory, name) FROM stdin;
+2	Фиеста первого поколения производилась с 1976 по 1983 годы с двигателями 957 см3 (40 л.с.) и 1117 см3 (53 л.с.), расположенными поперек переднего отсека. Кузов исполнялся в виде хэтчбэка с 3-мя дверями. Комплектации в Европе — Base, Popular, L, GL (и с 1978 года — Ghia и S). Компректации в США — Base, Decor, Sport и Ghia. Все комплектации в США поставлялись с более мощным мотором объемом 1596 см3. В 1981 году Эскорт заменил Фиесту на рынке США. \r\n\r\nНезначительные рестайлинг был в 1981 году. Был увеличен бампер, чтобы удовлетворить правила дорожного движения и другие незначительные улучшения для сохранения внимания перед выпуском второго поколения. \r\n\r\nФиеста второго поколения вышел в середине 1983 года и выпускался до 1989 года. За этот период было произведено около 2 миллионов единиц. Автоматическая трансмиссия появилась в 1985 году на некоторых комплектациях. Двигатели остались те же, что и в первом поколении с незначительными изменениями. Впервые появился дизель объемом 1600 см3, адаптированный с Эскорта, а также в 1986 году появился 1400 см3 инжектор. \r\n\r\nОблик автомобиля стал более динамичным. Приборная панель стала различной на простых и более дорогих комплектациях. 	images/storiesphoto/2.jpg	\N	\N	Форд Фиеста — супермини автомобиль B-класса был разработан в 1972 году и одобрен для производства в 1973 году под названием Bobcat. Первое поколение увидело свет в 1976 году.	Ford Fiesta
+7	Северная Америка была колонизирована поселенцами из Северной и Западной Европы. Эти поселенцы принесли с собой привычки и идеи в одежде, которые были характерны для места их происхождения, но на их одежду оказывал влияние климат части страны, в которую они пришли. Например, ранние поселенцы из Испании, прибывшие во Флориду в 1565 году, а также в их более поздних поселениях в Техасе и Калифорнии, продолжали носить привычную одежду испанских стилей, так как климат не очень отличался от климата Испании. В отличие от этих колонистов, дальше на север, в Новой Англии были более суровые зимы, чем они привыкли. Их потребность в тёплой меховой одежде была более высокой чем в Англии.\r\n\r\nМногие колонисты считали важным сохранить классовые различия во всех областях. Из-за этого возникли многие законы, регулирующие потребление предметов роскоши , которые, запрещали представителям разных классов покупать или изготавливать для себя одежду, предназначенную для другого класса. Протокол в одежде был видимым выражением их решимости сохранить свое наследие. Подобные законы, ограничивающие платье, также были приняты по религиозным соображениям. В Америке, как и в Англии, простое платье и богатое платье стало, по сути, соответствующими символами положения в обществе.\r\n\r\nВозможно, наибольшее изменение в одежде в Америке в отличие от Европы произошло в рабочем костюме и повседневной одежде. Более суровый климат заставил американцев носить тяжелую и тёплую одежду из меховых и плотных материалов. Отличительной особенностью всех перечисленных видов одежды было «тяжелая ткань" и "сильный долговечный материал". Мужчины и мальчики носили удобные, прочные куртки и штаны, сделанные, например, из оленьей кожи. Кожа обрабатывалась специальным образом до консистенции тонкой замши так, как это делали индейцы.\r\n\r\nДля многих английских колонистов первые годы было трудными. Большинство людей изготавливали свои собственные одежды, культивируя лён и хлопок, разводили овец для шерсти. Одежда для повседневной носки была версией той, которую носили в Англии. Лучшую одежду держали для воскресенья и праздничных дней. Такой одеждой пользовались длительное время, и большинство колонистов поэтому могли носить стили, которые считались старомодными в Англии.\r\n\r\nКаждодневное платье женщины состояло из короткого халата из прочного материала, домотканой юбки и длинного фартука. Более стильное платье шили из тонкого материала. Это часто было платье с полным рукавом. На многих портретах женщин и детей 17 века в таком платье присутствовала узкая лента. Чулки были либо трикотажные, либо вырезались из тканого полотна и шили соответственно ноге.	images/storiesphoto/7.jpg	\N	\N	Компания Ford Sollers, которая производит и продает автомобили под маркой Ford на российском рынке, пересмотрела модельный ряд. Завершены продажи нового S-Max, Galaxy и пикапов Ranger.	Ford пересмотрел модельный ряд в России
+5	Получивший во время разработки кодовое название CW170, изначально Focus получил своё имя в честь Ghia концепта, который был показан на Geneva Motor Show в 1991 году. Конечные элементы дизайна были уже показаны ранее в прототипе использованом Ford’ом для демонстрации систем безопасности грядущей новинки, например таких как задний блок световых указателей, расположенный на уровне глаз. Первые шпионские фотографии развития New Edge философии стиля Ford’а были показаны в 1995 году, впервые реализован в Ford Ka в 1996 и Ford Cougar в 1998.\r\n\r\nРешение назвать новую машину Ford Focus было принято в начале 1998.\r\n\r\nРестайлинг 2002 года[править | править вики-текст]\r\nВ 2002 году был проведён рестайлинг первого поколения Ford Focus. Изменения включают:\r\n\r\nОбновлённые фары с интегрированными индикаторами поворота и разделенными отражателями для ближнего и дальнего света.\r\nОбновлённый бампер без индикаторов, но с дополнительными съёмными полосками\r\nОбновлённые верхняя и нижняя радиаторные решётки и противотуманные фары\r\nОпциональные ксеноновые фары\r\nОпциональный CD-чейнджер на 6 дисков\r\nОпциональная навигационная система\r\nОпциональный цифровой климат-контроль\r\nВозможность точной регулировки сидения\r\nМодифицированная центральная консоль, с резиновыми подстаканниками\r\nРазличные расцветки панели приборов\r\nНовые сиденья\r\nРазличные улучшения в инструментах управления\r\nНовые расцветки\r\nRear power point\r\nTDCi-двигатель\r\nДополнительный набор опций\r\nТакже был представлен новый двигатель с технологий flexfuel. Доступен этот двигатель был только на рынке Швеции	images/storiesphoto/5.jpg	\N	\N	Ford Focus — компактный автомобиль американской компании Ford. В России с 1999 года произведено и продано 500 000 экземпляров.[1] В 2010 году был самой продаваемой иномаркой в России[2], а в Европе стабильно входит в десятку самых продаваемых автомобилей.	Ford Focus
+1	Родился в семье эмигрантов из Ирландии, проживавшей на ферме в окрестностях Детройта. Когда ему исполнилось 16 лет, он убежал из дома и уехал работать в Детройт. В 1891—1899 годах исполнял обязанности инженера-механика, а позже и главного инженера в «Электрической компании Эдисона» (Edison Illuminating Company). В 1893 году в свободное от работы время сконструировал свой первый автомобиль. С 1899 по 1902 год был совладельцем «Детройтской автомобильной компании», но из-за разногласий с остальными владельцами фирмы ушёл из неё и в 1903 году основал Форд Мотор Компани, которая первоначально выпускала автомобили под маркой Ford A.\r\n\r\n«Форд мотор компани» столкнулась с конкуренцией синдиката автомобилестроителей, претендовавшего на монополию в этой сфере. В 1879 г. Дж. Б. Селден запатентовал проект автомобиля, который не был построен; он содержал лишь описание основных принципов. Первый же выигранный им судебный процесс о нарушении патентного права побудил владельцев ряда автомобилестроительных компаний приобрести соответствующие лицензии и создать «ассоциацию законных фабрикантов». Судебный процесс против «Форд мотор компани», инициированный Селденом, длился с 1903 по 1911 г. «Законные фабриканты» угрожали вызовом в суд покупателям автомобилей Форда. Но тот действовал мужественно, публично обещая своим покупателям «помощь и защиту», хотя финансовые возможности «законных фабрикантов» намного превышали его собственные. В 1909 г. Форд проиграл процесс, но после пересмотра дела суд решил, что ни один из автомобилестроителей не нарушал права Селдена, так как ими использовался двигатель другой конструкции. Монопольное объединение тут же распалось, а Генри приобрел репутацию борца за интересы потребителей[1].\r\n\r\nНаибольший успех пришёл к фирме после начала выпуска модели Ford T в 1908 году. В 1910 году Форд построил и запустил самый современный завод в автомобильной промышленности — хорошо освещённый и хорошо вентилируемый «Хайленд парк». На нём в апреле 1913 года начался первый эксперимент по использованию сборочного конвейера. Первой сборочной единицей, собранной на конвейере, стал генератор. Принципы, опробованные при сборке генератора, применили ко всему двигателю в целом. Один рабочий изготавливал двигатель за 9 часов 54 минуты. Когда сборка была поделена на 84 операции, производимых 84 рабочими, то время сборки двигателя сократилось больше, чем на 40 минут. При старом способе производства, когда автомобиль, собирался на одном месте, на сборку шасси уходили 12 часов 28 минут рабочего времени. Была установлена движущаяся платформа и различные части шасси поступали или при помощи крюков, подвешенных на цепях, или на небольших моторных тележках. Срок изготовления шасси сократился более чем вдвое. Через год (в 1914 году) компания подняла высоту сборочной линии до пояса. После этого не замедлили появиться два конвейера — один для высоких и один для низких ростом. Эксперименты распространились на весь производственный процесс в целом. Через несколько месяцев работы сборочного конвейера время, необходимое для выпуска модели Т сократилось с 12 часов до двух и менее[2].	images/storiesphoto/1.jpg	\N	\N	Родился в семье эмигрантов из Ирландии, проживавшей на ферме в окрестностях Детройта. Когда ему исполнилось 16 лет, он убежал из дома и уехал работать в Детройт. В 1891—1899 годах исполнял обязанности инженера-механика, а позже и главного инженера в «Электрической компании Эдисона» (Edison Illuminating Company). В 1893 году в свободное от работы время сконструировал свой первый автомобиль. С 1899 по 1902 год был совладельцем «Детройтской автомобильной компании», но из-за разногласий с остальными владельцами фирмы ушёл из неё и в 1903 году основал Форд Мотор Компани, которая первоначально выпускала автомобили под маркой Ford A.	Биография Генри Форда
+4	Ford Model T (МФА: /fɔrd mɒdl ti/), также известный, как «Жестяная Лиззи» (англ. Tin Lizzie) — автомобиль, выпускавшийся Ford Motor Company с 1908 по 1927 годы. Был первым в мире автомобилем, выпускавшимся миллионными сериями. Генри Форд, по мнению многих, «посадил Америку на колёса», сделав новый легковой автомобиль сравнительно доступным для американца среднего класса. Это стало возможным благодаря таким нововведениям, как применение конвейера вместо индивидуальной ручной сборки и разумного, не в ущерб качеству, упрощения конструкции автомобиля, что позволило снизить себестоимость. Первый экземпляр «Model T» построен 27 сентября 1908 года на заводе Пикетт в Детройте, штат Мичиган.\r\n\r\nВопреки сложившемуся мнению, конструкция Model T, будучи великолепно адаптирована для технологий массового производства своего времени, при этом не была ни упрощённой, ни как либо ухудшенной по сравнению с другими автомобилями тех лет — её особенности, сегодня кажущиеся «упрощенческими», вроде термосифонной системы охлаждения или смазки всех узлов двигателя разбрызгиванием, в те годы были в ходу и на куда более дорогих марках. По своим техническим характеристикам, комфорту и оборудованию Ford T также не уступал большинству автомобилей своего времени, а по габаритным размерам и объёму двигателя соответствовал современным моделям среднего класса. Именно от Ford T ведёт своё начало специфическая особенность американского рынка легковых автомобилей — доминирование даже в массовом сегменте моделей среднего и большого (а не малого, как в Европе) литража, которые местные производители научились выпускать по доступным для широкой публики ценам.\r\n\r\nНизкая себестоимость «Форда Т» достигалась не за счёт экономии на размерах, мощности двигателя, конструктивном совершенстве, качестве материалов и задействованной на сборке рабочей силы, а благодаря высокой технологичности всех агрегатов автомобиля, огромным по тем временам масштабам его выпуска и внедрению передовых для своего времени технологий массового производства.\r\n\r\nАвтомобиль был снабжён четырёхцилиндровым двигателем рабочим объёмом 2,9 л (2893 см³) и двухступенчатой коробкой передач планетарного типа. В конструкции автомобиля были применены такие нововведения, как отдельная головка блока цилиндров и педальное переключение передач.	images/storiesphoto/4.jpg	\N	\N	Ford Model T (МФА: /fɔrd mɒdl ti/), также известный, как «Жестяная Лиззи» (англ. Tin Lizzie) — автомобиль, выпускавшийся Ford Motor Company с 1908 по 1927 годы. Был первым в мире автомобилем, выпускавшимся миллионными сериями. Генри	Ford Model T
+6	Такое решение кажется несколько странным, хотя, наверное, фордовским специалистам по маркетингу виднее, поскольку они проводили опрос среди российских покупателей и подавляющее большинство потенциальных клиентов высказало пожелание, чтобы автомобиль стал более вместительным. А желание клиента -закон. Так что не будем жалеть об отсутствии у нас на рынке "маленького" С-МАХ, ведь производитель утверждает, что, несмотря на более крупные габариты, по ходовым качествам версия Grand ему ничуть не уступает.\r\n\r\nГлобальная платформа\r\nСамым интересным в конструкции новинки является шасси, которое в будущем году будет использовать Ford Focus следующего, третьего поколения. Это шасси, которое в компании Ford именуют новой глобальной платформой класса "С", со временем станет основой для минимум десяти разных моделей или производных версий.\r\n\r\nПри разработке новой платформы инженеры поставили перед собой задачу улучшить и управляемость, и плавность хода. Но ведь чем лучше управляется автомобиль, тем более жесткой и менее комфортной становится подвеска. Чтобы этого не произошло, фордовцы потратились на новые технологии шасси и каркаса кузова, попутно поработав над ликвидацией шумов и вибраций. Так, кузов стал значительно жестче, а передняя и задняя подвески, тоже сбросив вес, обзавелись перенастроенными пружинами и амортизаторами.\r\n\r\nРулевое управление полностью новое, электрогидравлическое. Усилитель установлен на рулевой рейке, что должно обеспечить информативность на уровне гидроусилителя, а также точность реакций. Руль стал значительно острее. От упора до упора он совершает всего 2,4 оборота - примерно столько же у спорткара BMW M3. Кроме того, новое рулевое управление оснащается системой полуавтоматической парковки, а также умеет компенсировать уклоны дороги и влияние бокового ветра.\r\n\r\nНовый Grand C-MAX (как и простой С-МАХ) уже в базовой комплектации оборудован системой контроля тяги в поворотах, что в С-классе является большой редкостью. Она перераспределяет крутящий момент между передними колесами с помощью тормозной системы. Например, в повороте подтормаживается внутреннее переднее колесо, благодаря чему возникает избыток тяги на внешнем и автомобиль буквально ввинчивается в вираж.\r\nСловом,производитель обещает лучшие в классе ездовые качества и при этом плавность хода, характерную для седана более высокого класса. Что ж, мы это скоро проверим, но сначала оценим дизайн и внутреннее пространство нового минивэна.	images/storiesphoto/6.jpg	\N	\N	Ford C-MAX не популярный в России	Ford C-MAX
+3	Компания Ford Motor появилась в 1903 году. Ее основателями были двенадцать бизнесменов из штата Мичиган во главе с Генри Фордом, который держал 25,5% акций предприятия и занимал должности вице-президента и главного инженера компании. Под автомобильный завод была переоборудована бывшая фургонная фабрика на Мэк Авеню в Детройте. Бригады, состоявшие из двух-трех рабочих, под непосредственным руководством Форда собирали автомобили из запчастей, которые изготавливались на заказ другими предприятиями. Первый автомобиль компании был продан 23 июля 1903 года. В 1906 году Генри Форд стал президентом и основным владельцем компании.\r\nВ 1908 году Генри Форд воплотил в жизнь свою мечту, выпустив модель «T» – надежный и недорогой автомобиль, который стал одной из самых массовых и популярных машин своего времени. Именно появление модели «Т» ознаменовало наступление новой эры в развитии личного транспорта. Автомобилем Форда было просто управлять, он не требовал сложного технического обслуживания и мог проехать даже по сельским дорогам.	images/storiesphoto/3.jpg	\N	\N	Компания Ford Motor появилась в 1903 году. Ее основателями были двенадцать бизнесменов из штата Мичиган во главе с Генри Фордом, который держал 25,5#% акций предприятия и занимал должности вице-президента и главного инженера компании.	Компания Ford Motor
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY users (id, login, password, name, email, town, about, is_admin) FROM stdin;
+30	sadsad	49f0bad299687c62334182178bfd75d8	dsa	\N			\N
+31	qwe	76d80224611fc919a5d54f0ff9fba446	qwe	qwe	qwe	qwe	\N
+32	avito	a9b14f06758a8dff4f5b57724cc2c7b7	avito	avito	avito	avito	\N
+33	barbara	4d6c4d6b5b6c7fd2c43727ce32a56f4e	barbara				\N
+35	asdasd	a8f5f167f44f4964e6c998dee827110c	anton				\N
+34	tynx	c822c1b63853ed273b89687ac505f9fa	anton			true	t
+36	tynx11	c822c1b63853ed273b89687ac505f9fa	anton				\N
+37	tynx1111	398d218743001f96e7961ab21e7e89b1	anton				\N
+38	asd	86a72dae9d9e146b3a4ef3429fe09f03	asd				\N
+39	tynxx	037f92be23c180ce25a5d2b76405ee1a	tony				\N
+40	pass123	2446d54c2e68d221db9cff653b01a0eb	anton				\N
+29	qwerty	d8578edf8458ce06fbc5bb76a58c5ca4	qwerty	qwerty	qwerty	qwerty	t
+41	admin	21232f297a57a5a743894a0e4a801fc3	admin				f
+\.
+
+
+--
+-- Name: comment_stories comment_stories_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comment_stories
+    ADD CONSTRAINT comment_stories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: forum_topic forum_topic_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY forum_topic
+    ADD CONSTRAINT forum_topic_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: message message_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY message
+    ADD CONSTRAINT message_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: photos photos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY photos
+    ADD CONSTRAINT photos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: stories stories_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY stories
+    ADD CONSTRAINT stories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comment_stories comment_stories_story_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comment_stories
+    ADD CONSTRAINT comment_stories_story_id_fkey FOREIGN KEY (story_id) REFERENCES stories(id);
+
+
+--
+-- Name: comment_stories comment_stories_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comment_stories
+    ADD CONSTRAINT comment_stories_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: favorites favorites_story_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY favorites
+    ADD CONSTRAINT favorites_story_id_fkey FOREIGN KEY (story_id) REFERENCES stories(id);
+
+
+--
+-- Name: favorites favorites_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY favorites
+    ADD CONSTRAINT favorites_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: forum_topic forum_topic_users_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY forum_topic
+    ADD CONSTRAINT forum_topic_users_id_fkey FOREIGN KEY (users_id) REFERENCES users(id);
+
+
+--
+-- Name: message message_forum_topic_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY message
+    ADD CONSTRAINT message_forum_topic_id_fkey FOREIGN KEY (forum_topic_id) REFERENCES forum_topic(id);
+
+
+--
+-- Name: message message_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY message
+    ADD CONSTRAINT message_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
